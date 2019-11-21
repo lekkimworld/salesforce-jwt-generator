@@ -30,6 +30,11 @@ keys:
 
 **Please note:** The JWT expires in 5 minutes so be quick about exchanging it for an access token!
 
+```
+npm install
+npm start
+```
+
 ## Exchange the JWT for an access token ##
 Using Postman or similar post to the OAuth token-endpoint of Salesforce specifying a `grant_type`-parameter of `urn:ietf:params:oauth:grant-type:jwt-bearer` and specify the JWT in the `assertion` parameter.
 
