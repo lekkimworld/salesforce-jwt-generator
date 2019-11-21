@@ -55,3 +55,23 @@ Host: login.salesforce.com
 Authorization: Bearer 00D3X0000...zLwRJ3AzGgXa
 Connection: close
 ```
+## Using with Azure ##
+Using JWT's are also possible with Micrsoft Azure using the client_credentials flow specifying a JWT instead of a client_secret. To do this you must have uploaded the public key to the App Registation in Azure AD and you must specify a certificate thumbprint in the `x5t` key in the JWT header. The thumbprint is specified using `CERTIFICATE_THUMBPRINT` in the `.env` file and may be generated using `openssl` using a somewhat special process as it is not simply the sha1 hash as described in the documentation (https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-certificate-credentials). 
+
+The hash to specify may be generated as follows as per https://stackoverflow.com/a/52625165
+```
+echo $(openssl x509 -in your.cert.pem -fingerprint -noout) | sed 's/SHA1 Fingerprint=//g' | sed 's/://g' | xxd -r -ps | base64
+```
+
+Using the above exchange the JWT for an access token using a POST like below:
+```
+POST /b34deb2b-232f-4322-af4d-c732d5d885d0/oauth2/v2.0/token HTTP/1.1
+Host: login.microsoftonline.com
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+
+client_id=43d816a5-0cf4-888a-f8a0-7c88e6fc254e
+&grant_type=client_credentials
+&client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer
+&client_assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsIng1dCI6IjRyRWxzREZUeXNyYktoQjB6VHNyUk5TeFQ2cz0ifQ.eyJpYXQiOjE1NzQzNDgzMzEsImV4cCI6MTU3NDM0ODYzMSwiYXVkIjoiaHR0cHM6Ly9sb2dpbi5taWNyb3NvZnRvbmxpbmUuY29tL2IzNGRlYjJiLTIzMmYtNDMyMi1hZjRkLWM3MzJkNWQ4ODVkMC9vYXV0aDIvdjIuMC90b2tlbiIsImlzcyI6IjQzZDgxNmE1LTBjZjQtODg4YS1mOGEwLTdjODhlNmZjMjU0ZSIsInN1YiI6IjQzZDgxNmE1LTBjZjQtODg4YS1mOGEwLTdjODhlNmZjMjU0ZSJ9.CV7YCZ4Oak-g8b0nBTYweZDSp6lvYH48US02dWMV1Nie7wkYaqmTlTSRD5HGH5Jt5xGc9g0mNnX3p13m0AcbXTmZJ0MOfjnrAPvXJxtXEMEQXnHhIt_IExQ7NTNQWXvLRmlHydDFHMd-ss9QQt2BTwqPl6Lqlt4mgT9RfSd-6W3pTLyFsB21-WSCH1j7ykR9j5A5wfTpBtj_h4-kz3gq6VlFTVg2Mph4KlNYkssGSRd74qY1_olKeMFbI6Wft4Ige79D1qIcbC9DFITKMoEaSFSWS1Pg9pxkHoyOPFihO51SCXzFNRLGvA1nEQFRkV0raUokdWmoi7u_S_mUZe3qYQ&tenant=b34deb2b-232f-4322-af4d-c732d5d885d0&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default
+```

@@ -30,8 +30,15 @@ var signOptions = {
 	subject,
 	audience,
 	expiresIn,
-	algorithm
+	algorithm,
 };
+
+// add thumbprint of certificate if using with azure
+if (process.env.CERTIFICATE_THUMBPRINT) {
+	signOptions.header = {
+		"x5t": process.env.CERTIFICATE_THUMBPRINT
+	}
+}
 
 // sign token with private key
 const token = jwt.sign(additionalPayload, privateKEY, signOptions);
