@@ -1,0 +1,9 @@
+*.pem
+*.der
+*.cer
+*.p12
+*.key
+*.pub
+*.jks
+.env
+node_modules
