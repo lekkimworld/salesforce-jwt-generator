@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "access_token": "node access_token.js"
   },
   "author": "Mikkel Flindt Heisterberg (mheisterberg@salesforce.com)",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1"
   }
 }
