@@ -24,6 +24,10 @@ openssl x509 -in certificate.pem -pubkey > public_key.pem
 
 In Salesforce create a Connected App through the App Manager in Setup and upload the public key (public_key.cer from the above steps) to the app. Be sure to select the offline_access scope as well as other required scopes. For testing the `openid` scope is always good. Save the Connected App and make a note of the consumer key (client_id).
 
+**Please note**: If you plan on using the JWT to issue an access token the user must have authorized the Connected App _or_ it must be marked admin approved and the Connected App added to the user profile or assigned with a permission set. You must also ensure that the `refresh_token, offline_access` scope gets assigned.
+
+**Please note**: If you plan on using the JWT to create an access token that may be used to open the org using `frontdoor.jsp` ensure that the Connected App assigns the `web` scope.
+
 ## Generate a JWT
 
 Use the node.js app in this repo to create a JWT. Once you've cloned the repo create a `.env` file with the following
