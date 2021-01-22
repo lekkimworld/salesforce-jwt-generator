@@ -13,6 +13,17 @@ fetch(`${url}/services/oauth2/token`, {
 }).then(resp => resp.json()).then(data => {
     if (data.error) return console.log(data);
     console.log(data);
-    console.log(`Access token: ${data.access_token}`);
-    console.log(`${data.instance_url}/secur/frontdoor.jsp?sid=${data.access_token}`);
+
+    // compute url
+    let url;
+    if (data.hasOwnProperty("sfdc_community_url")) {
+        // community user
+        let idx = data.sfdc_community_url.lastIndexOf("/");
+        let retURL = `${data.sfdc_community_url.substring(idx)}/s`;
+        url = `${data.sfdc_community_url}/secur/frontdoor.jsp?sid=${data.access_token}&retURL=${retURL}`;
+    } else {
+        url = `${data.instance_url}/secur/frontdoor.jsp?sid=${data.access_token}`;
+    }
+    console.log(`Access token: ${data.access_token} `);
+    console.log(url);
 })

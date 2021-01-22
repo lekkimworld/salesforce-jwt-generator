@@ -60,9 +60,11 @@ Connection: close
 grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQzNDQzNDcsImV4cCI6MTU3NDM0NDY0NywiYXVkIjoiaHR0cHM6Ly9sb2dpbi5zYWxlc2ZvcmNlLmNvbSIsImlzcyI6Inh5ejEyMyIsInN1YiI6Impkb2VAZm9vLmRlbW8ifQ.jpEPDj_9DEhzvCUGwvEefZvd63IPvtBAZCSJ_-RJ-nlAqktbwoMoCrUFb_S1u0xRuWKBhwY7Mg58claQN2UTyxhjjDYzchIRsTbrRB-KNxzd6J_ew0of8IpB8NWN_1245KuO9clfo_Yoq8wwZUTBSSt55jh4-TyjpRg4UjIikus76GZL0xvWBWfGD2zxgshOgWMk-sewJE5REGP8FPz-SqV6L_o_ua82FbBvpchwRavFmK-y0E8kDNtoOhJyW-P8jvTMfZog1hslqPQBF6-z9EBUGFb482DrEh1vspwIGV-ioLHTmJo5kBhsJXrDG6hwODVVe2G_1eSl-52k4gOvTw
 ```
 
-### Get an access token using the JWT directly
+## Use frontdoor.jsp
 
 Instead of using Postman as outlined about you can also invoke `npm run access_token` from the command line to get an access token directly. That will also create a link to open the org directly using the `frontdoor.jsp` approach. In most shells you can Cmd-click or similar to open the link directly. If need be you can append `&retURL=<relative URL>` (i.e. `&retURL=/lightning/r/Account/00109000007fVDSAA2/view`) to open a specific record or page directly.
+
+**Please note**: If using `frontdoor.jsp` for a community you should set the `AUDIENCE` in `.env` to the community url (i.e. `https://isvsi-14ddd2ecd93-656fd6e55fe.force.com/customer`) and the `SUBJECT` to a community username. For a community using the retURL-parameter is also required but that is automatically attempted extracted from the community url by the script. The resulting frontdoor-url will be something like `https://isvsi-14ddd2ecd93-656fd6e55fe.force.com/customer/secur/frontdoor.jsp?sid=00D09000006JtKK!ARQADDdyuTBanM0oB71MT.qjbDirRlPDTFrZ2UAYJsvfZjBDD0k36NJoNeCwaNUrWx54vjSG3c10UKaQTB8RGcitOUrJYzKR&retURL=/customer/s`.
 
 ## Use the access token as a Bearer token
 
