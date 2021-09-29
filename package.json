@@ -1,17 +1,21 @@
 {
   "name": "salesforce-jwt-generator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generates a JWT for use with the Salesforce JWT OAuth Flow",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "access_token": "node access_token.js"
+    "frontdoor": "node examples/frontdoor.js",
+    "access_token": "node examples/access_token.js",
+    "genver": "node examples/generate_verify.js"
   },
   "author": "Mikkel Flindt Heisterberg (mheisterberg@salesforce.com)",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

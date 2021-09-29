@@ -1,7 +1,7 @@
 // read .env
 require("dotenv").config();
 const fetch = require("node-fetch");
-const data = (require("./jwt.js"))();
+const data = (require("../index.js"))();
 
 const url = process.env.AUDIENCE || 'https://login.salesforce.com';
 fetch(`${url}/services/oauth2/token`, {
